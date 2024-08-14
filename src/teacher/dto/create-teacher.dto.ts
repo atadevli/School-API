@@ -2,9 +2,11 @@ import { IsEmail, IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateTeacherDto {
   @IsNotEmpty()
+  @IsString()
   instrument: string;
 
   @IsNotEmpty()
+  @IsString()
   username: string;
 
   @IsNotEmpty()

@@ -1,4 +1,9 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -65,6 +70,14 @@ export class TeacherService {
     teacher.instrument = updateTeacherDto.instrument;
 
     const updateResult = await this.teacherRepository.update(id, teacher);
+
+    if (updateResult.affected === 0) {
+      // throw new ConflictException('Teacher could not found!');
+      throw new NotFoundException({
+        status: HttpStatus.NOT_FOUND,
+        error: 'Teacher could not found!',
+      });
+    }
 
     if (updateTeacherDto.username) {
       const updatedTeacher = await this.teacherRepository.findOneBy({ id });
