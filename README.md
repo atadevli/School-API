@@ -1,6 +1,6 @@
 ## Description
 
-Sirius API for student and teacher's crud operations.
+School API for student and teacher's crud operations.
 
 ## Installation
 
